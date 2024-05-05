@@ -5,10 +5,12 @@ export default function Home() {
   return (
     <main className="bg-whitesecond min-h-full w-full">
       <Navbar />
-      <div>
-          <UserButton />
-      </div>
-      <h1>hello world! this is a test for the fonts</h1>
+      {/*
+        <div>
+            <UserButton />
+        </div>
+        <h1>hello world! this is a test for the fonts</h1>
+       */}
     </main>
   );
 }

@@ -18,6 +18,7 @@ const config: Config = {
       'whitesecond':'#f4f7fd',
       'whitethird':'#eaf0fa',
       'purple':'#635fc7',
+      'lightpurple':'#A7A5EC',
       'grayy':'#828fa3',
       'blackprime':'#2b2c37',
       'blacksecond':'#20212c',
