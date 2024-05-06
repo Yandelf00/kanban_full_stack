@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import "./globals.css";
-
+import { Providers } from "@/providers";
+import AddTaskModal from "@/components/modals/AddTaskModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className="">
+      <html lang="en" className="" suppressHydrationWarning>
         <body className=''>
           <div className="overflow-y-hidden">
             <SignedOut>
@@ -26,7 +27,9 @@ export default function RootLayout({
             <SignedIn>
             </SignedIn>
           </div>
-          {children}
+          <Providers>
+            {children}
+          </Providers>
         </body>
       </html>
     </ClerkProvider>

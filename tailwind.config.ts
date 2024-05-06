@@ -24,8 +24,11 @@ const config: Config = {
       'blacksecond':'#20212c',
       'blackthird':'#23242f',
       'whiteprime':'#ffffff',
+      'black':'black',
+      'neutral':'neutral',
     }
   },
   plugins: [],
+  darkMode:'class',
 };
 export default config;
