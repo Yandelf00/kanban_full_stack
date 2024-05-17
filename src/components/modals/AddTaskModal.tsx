@@ -25,7 +25,7 @@ export default function AddTaskModal() {
                 bg-neutral-800
                 bg-opacity-70 '>
                <div onClick={(e)=>e.stopPropagation()} className='bg-whiteprime dark:bg-blackprime h-[500px] w-[300px]'>
-                
+                <form action="function"></form> 
                </div> 
             </div>
         ):(
