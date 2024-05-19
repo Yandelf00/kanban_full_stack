@@ -7,20 +7,27 @@ import { getBoards } from '@/_actions/boards'
 import { Board } from '@prisma/client'
 import BoardTemplate from './BoardTemplate'
 import { useBoards } from '@/hooks/useBoards'
-
+import { createBoard } from '@/_actions/boards'
+import { useRouter } from 'next/navigation'
 export default function OpenSideBar() {
+  const router = useRouter() 
   const boards = useBoards((state)=>state.boards)
   {/*
+  const createLeBoard = async()=>{
+    await createBoard()
+    getTheBoards()
+  }
   const [boards, setBoards] = useState<any>(null)
   const getTheBoards = async()=>{
     try{
       const res = await getBoards()
       if (res) setBoards(res)
+
     }catch(error){
       console.log(error)
     }
   }
-  
+
   useEffect(()=>{
     getTheBoards()
   }, [])
