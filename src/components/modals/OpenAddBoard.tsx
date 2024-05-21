@@ -1,21 +1,20 @@
 import React from 'react'
 import { useState } from 'react'
-import { createBoard} from '@/_actions/boards'
 import { useAddBoard } from '@/hooks/useAddBoard'
 import { showFormData } from '@/_actions/boards'
 import { anotherOne } from '@/_actions/boards'
 import { useFormState } from 'react-dom'
+import { createBoard } from '@/_actions/boards'
 
-const wtvr = {
-    message : "smtg" 
-}
+const wtvr = {}
 
 
 export default function OpenAddBoard() {
-    const [error, another] = useFormState(anotherOne, wtvr)
+    const [error, another] = useFormState(createBoard, wtvr)
     const close = useAddBoard((state)=>state.onClose)
     const [fields, setFields] = useState<string[]>(["Todo", "Doing"])
     const [name, setName] = useState<string>('')
+
     const actionShow = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         showFormData(name, fields);
@@ -24,7 +23,7 @@ export default function OpenAddBoard() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-    another(formData); // Call the function with FormData
+        another(formData); // Call the function with FormData
     };
     const handleChangeField = (index:number, value:string)=>{
         const updatedFields = [...fields]

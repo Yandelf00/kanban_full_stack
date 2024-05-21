@@ -6,16 +6,29 @@ import Button from './Button'
 import Logo from './Logo'
 import { deleteAll } from '@/_actions/boards'
 import { useRouter } from 'next/navigation'
+import { getCols } from '@/_actions/boards'
+import { getBoards } from '@/_actions/boards'
 
 
 export default function Navbar() {
   const router = useRouter()
-  const deleteAllBoards = async()=>{
+  const getAllBoards = async()=>{
     try {
-      const res = await deleteAll()  
+      const res = await getBoards() 
+      if(res){
+        console.log(res)
+        return res
+      }
+    } catch (error) {
+      console.log(error) 
+    }
+  }
+  const getAllCols= async()=>{
+    try {
+      const res = await getCols()  
       if (res) {
-        router.refresh()
-        return 'deleted'
+        console.log(res)
+        return res
       } 
     } catch (error) {
       console.log(error) 
@@ -43,7 +56,7 @@ export default function Navbar() {
 
         <div className='flex space-x-2 md:space-x-5 lg:space-x-5 items-center mr-2 lg:mr-5 md:mr-5'>
           <Button/>
-          <div onClick={deleteAllBoards}>
+          <div onClick={getAllBoards}>
             <VerticalEllipsis/>
           </div>
           <UserButton/>
