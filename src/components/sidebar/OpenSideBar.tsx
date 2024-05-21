@@ -8,9 +8,10 @@ import { Board } from '@prisma/client'
 import BoardTemplate from './BoardTemplate'
 import { useBoards } from '@/hooks/useBoards'
 import { createBoard } from '@/_actions/boards'
-import { useRouter } from 'next/navigation'
+
+
+
 export default function OpenSideBar() {
-  const router = useRouter() 
   const boards = useBoards((state)=>state.boards)
   {/*
   const createLeBoard = async()=>{
