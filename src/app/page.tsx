@@ -9,10 +9,14 @@ import { useBoards } from "@/hooks/useBoards";
 
 export default function Home() {
   const setBoards = useBoards((state)=>state.setBoards)
+  const setActiveBoard = useBoards((state)=>state.setFirstActive)
   const getTheBoards = async()=>{
     try {
       const themBoards = await getBoards() 
-      if (themBoards) setBoards(themBoards) 
+      if (themBoards) {
+        setBoards(themBoards) 
+        setActiveBoard()
+      }
     } catch (error) {
       console.log(error)
     }

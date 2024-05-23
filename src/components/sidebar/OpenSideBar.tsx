@@ -44,7 +44,7 @@ export default function OpenSideBar() {
               </div>
               {boards !== null ? (boards.map((board : Board) => (
                 <div key={board.id}>
-                  <BoardTemplate name={board.name} />
+                  <BoardTemplate name={board.name} isActive={board.isActive} />
                 </div>
               ))) : (
                 <div></div>

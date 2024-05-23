@@ -11,7 +11,8 @@ export type Board = {
 type Boards = {
     boards: Board[],
     onActive: (name: string) => void,
-    setBoards : (boards : Board[]) => void
+    setBoards : (boards : Board[]) => void,
+    setFirstActive : ()=>void
 }
 
 export const useBoards = create<Boards>((set) => ({
@@ -26,6 +27,13 @@ export const useBoards = create<Boards>((set) => ({
     },
     setBoards : (boards : Board[]) =>{
         set({boards : boards})
+    },
+    setFirstActive : ()=>{
+        set((state)=>({boards : state.boards.map((board:Board, index:number)=>({
+                ...board,
+                isActive : index === 0
+        }))
+    }))
     }
     
 }));

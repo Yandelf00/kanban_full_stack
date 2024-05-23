@@ -56,7 +56,7 @@ export default function Navbar() {
 
         <div className='flex space-x-2 md:space-x-5 lg:space-x-5 items-center mr-2 lg:mr-5 md:mr-5'>
           <Button/>
-          <div onClick={getAllBoards}>
+          <div onClick={getAllCols}>
             <VerticalEllipsis/>
           </div>
           <UserButton/>

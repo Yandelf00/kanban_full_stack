@@ -2,14 +2,17 @@ import React from 'react'
 
 
 type BoardTemplateProps = {
-    name : string
+    name : string,
+    isActive : boolean
 }
-export default function BoardTemplate({ name } : BoardTemplateProps) {
+export default function BoardTemplate({ name, isActive } : BoardTemplateProps) {
+    const nonActive = ""
     return (
             <div className='w-full flex jstify-start cursor-pointer'>
-                <div className='w-[90%] h-[50px] hover:bg-lightpurple 
-                text-grayy hover:text-purple flex flex-row dark:hover:bg-whiteprime transition ease-in delay-100 
-                justify-start items-center space-x-4 rounded-r-full'>
+                <div className={`w-[90%] h-[50px] 
+                ${isActive ? 'bg-whiteprime text-purple': 'text-grayy hover:bg-lightpurple hover:text-purple dark:hover:bg-whiteprime'}
+                flex flex-row transition ease-in delay-100 
+                justify-start items-center space-x-4 rounded-r-full `}>
                     <div className='ml-5 h-full w-full flex flex-row items-center'>
                         <BoardLogo/>
                         <p className='font-semibold ml-2'>
