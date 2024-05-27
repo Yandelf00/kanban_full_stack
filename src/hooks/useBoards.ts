@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 
-
 export type Board = {
     id : number,
     isActive: boolean,
@@ -10,18 +9,19 @@ export type Board = {
 
 type Boards = {
     boards: Board[],
-    onActive: (name: string) => void,
+    onActive: (theId: number) => void,
     setBoards : (boards : Board[]) => void,
-    setFirstActive : ()=>void
+    setFirstActive : ()=>void,
+    getActive : ()=>number
 }
 
-export const useBoards = create<Boards>((set) => ({
+export const useBoards = create<Boards>((set, get) => ({
     boards: [],
-    onActive: (activeName: string) => {
+    onActive: (activeId: number) => {
         set((state) => ({
             boards: state.boards.map((board) => ({
                 ...board,
-                isActive: board.name === activeName
+                isActive: board.id === activeId 
             }))
         }));
     },
@@ -34,6 +34,12 @@ export const useBoards = create<Boards>((set) => ({
                 isActive : index === 0
         }))
     }))
+    },
+    getActive : ()=>{
+        const {boards} = get()
+        const activeBoard = boards.find((board:Board)=>board.isActive === true) 
+        if (!activeBoard) return 0 
+       return activeBoard.id
     }
     
 }));

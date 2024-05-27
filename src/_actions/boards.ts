@@ -2,9 +2,7 @@
 import { z } from "zod"
 import db from "@/db/db"
 import { notFound } from "next/navigation"
-import { revalidatePath, revalidateTag } from "next/cache"
 import { auth } from "@clerk/nextjs/server"
-import { None } from "framer-motion"
 
 
 const addBoard = z.object({
@@ -12,24 +10,6 @@ const addBoard = z.object({
   cols : z.array(z.string().min(1))
 })
 
-
-export async function anotherOne(prevState : any, formData:FormData){
-  const rawFormData = {
-    name : formData.get('name'),
-    cols : formData.getAll('cols'),
-  }
-  const result = addBoard.safeParse(rawFormData)
-  const data = result.data
-  console.log(data)
-  const smtg = data?.cols.map((col:string)=>{
-    const objs = {
-      name : col
-    }   
-    return objs
-  })
-  console.log(smtg)
-  return {message : "something"}
-}
 export async function createBoard(prevState:any, formData:FormData){
     const { userId } = auth()
     const rawFormData = {
@@ -74,6 +54,21 @@ export async function getCols(){
       return notFound()
     }
     return cols
+  } catch (error) {
+    console.log(error) 
+    return []
+  }
+}
+
+export async function getActiveBoard(){
+  try {
+    const res = await db.board.findFirst({
+      where: {
+        isActive : true
+      }
+    }) 
+    if(!res) return notFound()
+    return res
   } catch (error) {
     console.log(error) 
     return []

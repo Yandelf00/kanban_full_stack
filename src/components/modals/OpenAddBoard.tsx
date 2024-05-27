@@ -2,19 +2,35 @@ import React from 'react'
 import { useState } from 'react'
 import { useAddBoard } from '@/hooks/useAddBoard'
 import { showFormData } from '@/_actions/boards'
-import { anotherOne } from '@/_actions/boards'
 import { useFormState } from 'react-dom'
 import { createBoard } from '@/_actions/boards'
+import { getBoards } from '@/_actions/boards'
+import { useBoards } from '@/hooks/useBoards'
+import { notFound } from 'next/navigation'
 
 const wtvr = {}
 
 
 export default function OpenAddBoard() {
+    const setBoards = useBoards((state)=>state.setBoards)
+    const setActiveBoard = useBoards((state)=>state.setFirstActive)
     const [error, another] = useFormState(createBoard, wtvr)
     const close = useAddBoard((state)=>state.onClose)
     const [fields, setFields] = useState<string[]>(["Todo", "Doing"])
     const [name, setName] = useState<string>('')
 
+
+    const getBoardsAfterSub = async()=>{
+        try {
+            const res = await getBoards()
+            if(res){
+                setBoards(res)
+                setActiveBoard()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
     const actionShow = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         showFormData(name, fields);
@@ -24,6 +40,8 @@ export default function OpenAddBoard() {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         another(formData); // Call the function with FormData
+        getBoardsAfterSub();
+        close();
     };
     const handleChangeField = (index:number, value:string)=>{
         const updatedFields = [...fields]

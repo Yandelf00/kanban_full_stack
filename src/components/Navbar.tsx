@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { UserButton } from '@clerk/nextjs'
 import Button from './Button'
@@ -8,9 +8,15 @@ import { deleteAll } from '@/_actions/boards'
 import { useRouter } from 'next/navigation'
 import { getCols } from '@/_actions/boards'
 import { getBoards } from '@/_actions/boards'
-
+import { getTheCols } from '@/_actions/cols'
+import { useBoards } from '@/hooks/useBoards'
 
 export default function Navbar() {
+  const theBoards = useBoards((state)=>state.boards)
+  const [boardId, setBoardId] = useState<number>(0)
+  useEffect(()=>{
+    setBoardId(theBoards[0]?.id)
+  },[theBoards])
   const router = useRouter()
   const getAllBoards = async()=>{
     try {
@@ -26,6 +32,17 @@ export default function Navbar() {
   const getAllCols= async()=>{
     try {
       const res = await getCols()  
+      if (res) {
+        console.log(res)
+        return res
+      } 
+    } catch (error) {
+      console.log(error) 
+    }
+  }
+  const getSpefCols= async()=>{
+    try {
+      const res = await getTheCols(boardId)  
       if (res) {
         console.log(res)
         return res

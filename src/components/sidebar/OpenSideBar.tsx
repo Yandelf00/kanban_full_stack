@@ -11,8 +11,10 @@ import { createBoard } from '@/_actions/boards'
 
 
 
+
 export default function OpenSideBar() {
   const boards = useBoards((state)=>state.boards)
+  const onActive = useBoards((state)=>state.onActive)
   {/*
   const createLeBoard = async()=>{
     await createBoard()
@@ -43,7 +45,7 @@ export default function OpenSideBar() {
                 ALL BOARDS &#40; {boards ? boards?.length : 0 } &#41; 
               </div>
               {boards !== null ? (boards.map((board : Board) => (
-                <div key={board.id}>
+                <div key={board.id} onClick={()=>onActive(board.id)}>
                   <BoardTemplate name={board.name} isActive={board.isActive} />
                 </div>
               ))) : (
