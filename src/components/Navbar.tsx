@@ -10,6 +10,8 @@ import { getCols } from '@/_actions/boards'
 import { getBoards } from '@/_actions/boards'
 import { getTheCols } from '@/_actions/cols'
 import { useBoards } from '@/hooks/useBoards'
+import { getAllSubtasks } from '@/_actions/subtasks'
+
 
 export default function Navbar() {
   const theBoards = useBoards((state)=>state.boards)
@@ -22,6 +24,17 @@ export default function Navbar() {
     try {
       const res = await getBoards() 
       if(res){
+        console.log(res)
+        return res
+      }
+    } catch (error) {
+      console.log(error) 
+    }
+  }
+  const getAllSubs = async()=>{
+    try {
+      const res = await getAllSubtasks()
+      if (res){
         console.log(res)
         return res
       }
@@ -73,7 +86,7 @@ export default function Navbar() {
 
         <div className='flex space-x-2 md:space-x-5 lg:space-x-5 items-center mr-2 lg:mr-5 md:mr-5'>
           <Button/>
-          <div onClick={getAllCols}>
+          <div onClick={getAllSubs}>
             <VerticalEllipsis/>
           </div>
           <UserButton/>

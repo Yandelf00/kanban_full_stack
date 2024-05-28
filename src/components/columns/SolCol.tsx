@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import { useTasks } from '@/hooks/useTasks'
 import TaskCard from '../tasks/TaskCard'
 
-
 type solColProps = {
     name : string 
     colId : number

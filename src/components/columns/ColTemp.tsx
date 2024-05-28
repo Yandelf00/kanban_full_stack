@@ -6,8 +6,12 @@ import { useBoards } from '@/hooks/useBoards'
 import SolCol from './SolCol'
 import { getSpefTasks } from '@/_actions/tasks'
 import { useTasks } from '@/hooks/useTasks'
+import { getSpefSubtasks } from '@/_actions/subtasks'
+import { useSubTasks } from '@/hooks/useSubTasks'
 
 export default function ColTemp() {
+    const tsks = useTasks((state)=>state.tasks)
+    const setSubs = useSubTasks((state)=>state.setSubTasks)
     const setTasks = useTasks((state)=>state.setTasks)
     const cols = useCols((state)=>state.cols)
     const setCols = useCols((state)=>state.setCols)
@@ -38,6 +42,19 @@ export default function ColTemp() {
             console.log(error) 
         }
     }
+    async function getTheSubs(){
+        const taskIds = tsks.map((task)=>{
+            return task.id
+        })
+        try {
+            const subs = await getSpefSubtasks(taskIds) 
+            if (subs){
+                setSubs(subs)
+            }
+        } catch (error) {
+            console.log(error) 
+        }
+    }
     useEffect(()=>{
         setActBoard(getActBoardId)
     }, [boards])
@@ -47,6 +64,9 @@ export default function ColTemp() {
     useEffect(()=>{
         getTheTasks()
     }, [cols])
+    useEffect(()=>{
+        getTheSubs()
+    }, [tsks])
 
     return (
         <div className='ml-10 fixed flex flex-row'>
