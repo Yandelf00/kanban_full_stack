@@ -11,7 +11,7 @@ export async function getAllSubtasks(){
         return subs
     } catch (error) {
         console.log(error) 
-        return {}
+        return []
     }
 }
 
@@ -24,7 +24,7 @@ export async function getSpefSubtasks(taskIds : number[]){
                 }
             }
         })
-        if (!subs) return notFound()
+        if (!subs.length) return []
         return subs
     } catch (error) {
         console.log(error) 

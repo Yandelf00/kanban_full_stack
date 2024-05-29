@@ -8,6 +8,7 @@ import { getBoards } from "@/_actions/boards";
 import { useEffect } from "react";
 import { useBoards } from "@/hooks/useBoards";
 import { useCols } from "@/hooks/useCols";
+import TaskModal from "@/components/modals/TaskModal";
 
 
 export default function Home() {
@@ -30,6 +31,7 @@ export default function Home() {
   },[])
   return (
     <main className="bg-whitesecond dark:bg-blacksecond min-h-full w-full">
+      <TaskModal/>
       <AddBoardModal/>
       <AddTaskModal/>
       <Navbar />

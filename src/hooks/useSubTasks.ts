@@ -12,9 +12,9 @@ type Subtasks = {
     setSubTasks : (subs : Subtask[])=>void;
 }
 
-export const useSubTasks = create<Subtasks>((set)=>({
+export const useSubTasks = create<Subtasks>((set, get)=>({
     subtasks : [],
-    setSubTasks : (subs : Subtask[])=>{
-        set({subtasks : subs})
+    setSubTasks : (subtasks : Subtask[])=>{
+        set({subtasks : subtasks})
     }
 }))
