@@ -79,13 +79,16 @@ export default function ColTemp() {
 
     return (
         <div className='ml-10 fixed flex flex-row'>
-
-
             {cols.map((col)=>(
                 <div key={col.id} className=''>
                     <SolCol name={col?.name} colId={col.id}/>
                 </div>
             ))}
+            <div className='flex justify-center items-center 
+            w-80 h-[800px] rounded-md mt-11 
+            dark:bg-blackthird bg-whitethird text-[22px] text-grayy font-bold hover:text-purple cursor-pointer'>
+                + New Column
+            </div>
         </div>
     )
 }

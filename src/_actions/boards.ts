@@ -136,3 +136,17 @@ export async function deleteAll() {
     console.log(error)
   }
 }
+
+export async function deleteSpefBoard(boardId : number){
+  try {
+    const deleteBoard = await db.board.delete({
+      where : {
+        id : boardId
+      }
+    }) 
+    if (!deleteBoard) return notFound()
+    return deleteBoard
+  } catch (error) {
+    console.log(error) 
+  }
+}

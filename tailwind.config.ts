@@ -26,7 +26,8 @@ const config: Config = {
       'whiteprime':'#ffffff',
       'black':'black',
       'neutral':'neutral',
-      'darkHover':'#A29CFD'
+      'darkHover':'#A29CFD',
+      'red':'#EC0F12'
     }
   },
   plugins: [],

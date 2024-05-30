@@ -30,7 +30,7 @@ export default function TaskCard( { task } : TaskCardProps) {
   }
   function subIsUndone(){
     const doneSubs = subtasks.filter((sub:Subtask)=>{
-      return sub.isCompleted === false && sub.taskId === task.id
+      return sub.taskId === task.id
     })
     setUndone(doneSubs.length)
   }
@@ -46,8 +46,8 @@ export default function TaskCard( { task } : TaskCardProps) {
   return (
     <div onClick={()=>{
       handleOpen(task.id, task.title, task.description, subsOfTask, task.status) 
-    }} className='p-3 mt-5 w-80 min-h-20 bg-blackprime 
-    flex flex-col rounded-md cursor-pointer hover:text-purple'>
+    }} className='p-3 mt-5 w-80 min-h-20 bg-whiteprime dark:bg-blackprime 
+    flex flex-col rounded-md cursor-pointer hover:text-purple shadow-md'>
         <h1 className='font-semibold'>
             {task.title}
         </h1>

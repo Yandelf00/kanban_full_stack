@@ -5,17 +5,20 @@ import IconCross from '../IconCross'
 import { useCols } from '@/hooks/useCols'
 import { useFormState } from 'react-dom'
 import { addSimpleTask, getTasks, tryAddTask, deleteAllTasks, addATask } from '@/_actions/tasks'
+import { getSpefTasks } from '@/_actions/tasks'
+import { useTasks } from '@/hooks/useTasks'
 
 
 
 export default function AddTaskModal() {
+    const setTasks = useTasks((state)=>state.setTasks)
     const [error, addTask] = useFormState(addATask, {})
     const cols = useCols((state)=>state.cols)
     const [subtasks, setSubtasks] = useState<string[]>(["", ""])
     const isOpen = useAddTask((state)=>state.isOpen)
     const close = useAddTask((state)=>state.onClose)
-    const fieldClassName = "mt-2 bg-blackprime border border-grayy rounded-md w-full h-[40px] focus:border-purple focus:outline-none pl-4"
-    const textClassName = "mt-2 bg-blackprime border border-grayy rounded-md w-full h-[170px] focus:border-purple focus:outline-none pl-4"
+    const fieldClassName = "mt-2 dark:bg-blackprime border border-grayy rounded-md w-full h-[40px] focus:border-purple focus:outline-none pl-4"
+    const textClassName = "mt-2 dark:bg-blackprime border border-grayy rounded-md w-full h-[170px] focus:border-purple focus:outline-none pl-4"
     function handleSubChange(index:number, value:string){
         const updatedSubtasks = [...subtasks]
         updatedSubtasks[index] = value 
@@ -27,50 +30,32 @@ export default function AddTaskModal() {
     function deleteField(index:number){
         setSubtasks(subtasks.filter((_, i:number)=> i !== index))
     }
-    async function addThemTasks(){
-        try {
-            const themTasks = await addSimpleTask() 
-            if (themTasks){
-                return themTasks
-            }
-        } catch (error) {
-            console.log(error) 
-        }
-    }
-    async function getThemTasks(){
-        try {
-           const themTasks = await getTasks() 
-           if (themTasks){
-                console.log(themTasks)
-                return themTasks
-           }
-        } catch (error) {
-           console.log(error) 
-           return {}
-        }
-    }
-
-    async function deletion(){
-        try {
-            const deletedTasks = await deleteAllTasks() 
-            if (deletedTasks){
-                return deletedTasks
-            }
-        } catch (error) {
-            console.log(error) 
-        }
-    }
     function handleClose(){
         const helper = ["", ""]
         setSubtasks(helper)
         close()
+    }
+    async function getTheTasks(){
+        const colIds = cols.map((col)=>{
+            return col.id
+        })
+        try {
+            const tasks = await getSpefTasks(colIds) 
+            if (tasks){
+                setTasks(tasks)
+            }
+        } catch (error) {
+            console.log(error) 
+        }
     }
     function handleSubmit(e : React.FormEvent<HTMLFormElement>){
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
         addTask(formData)
         handleClose()
+        getTheTasks()
     }
+
     return (
         <>
         {isOpen ? (
@@ -153,3 +138,42 @@ function SubmitButton(){
         text-whiteprime font-semibold'>Create New Board</button>
     )
 }
+
+
+
+
+{/*
+    async function addThemTasks(){
+        try {
+            const themTasks = await addSimpleTask() 
+            if (themTasks){
+                return themTasks
+            }
+        } catch (error) {
+            console.log(error) 
+        }
+    }
+    async function getThemTasks(){
+        try {
+           const themTasks = await getTasks() 
+           if (themTasks){
+                console.log(themTasks)
+                return themTasks
+           }
+        } catch (error) {
+           console.log(error) 
+           return {}
+        }
+    }
+
+    async function deletion(){
+        try {
+            const deletedTasks = await deleteAllTasks() 
+            if (deletedTasks){
+                return deletedTasks
+            }
+        } catch (error) {
+            console.log(error) 
+        }
+    }
+*/}

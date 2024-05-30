@@ -9,7 +9,8 @@ import { useEffect } from "react";
 import { useBoards } from "@/hooks/useBoards";
 import { useCols } from "@/hooks/useCols";
 import TaskModal from "@/components/modals/TaskModal";
-
+import BoardOptions from "@/components/options/BoardOptions";
+import DeleteBoard from "@/components/options/DeleteBoard";
 
 export default function Home() {
   const cols = useCols((state)=>state.cols)
@@ -31,6 +32,8 @@ export default function Home() {
   },[])
   return (
     <main className="bg-whitesecond dark:bg-blacksecond min-h-full w-full">
+      <DeleteBoard/>
+      <BoardOptions/>
       <TaskModal/>
       <AddBoardModal/>
       <AddTaskModal/>

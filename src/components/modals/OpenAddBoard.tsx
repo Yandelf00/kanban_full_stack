@@ -35,7 +35,7 @@ export default function OpenAddBoard() {
         event.preventDefault();
         showFormData(name, fields);
      };
-    const fieldClassName = "mt-2 bg-blackprime border border-grayy rounded-md w-full h-[40px] focus:border-purple focus:outline-none pl-4"
+    const fieldClassName = "mt-2 dark:bg-blackprime border border-grayy rounded-md w-full h-[40px] focus:border-purple focus:outline-none pl-4"
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
